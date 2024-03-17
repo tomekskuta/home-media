@@ -1,5 +1,9 @@
 import createError from 'http-errors';
-import express, { Request, Response, NextFunction } from 'express';
+import express, {
+  type Request,
+  type Response,
+  type NextFunction,
+} from 'express';
 import path from 'path';
 import cookieParser from 'cookie-parser';
 import logger from 'morgan';
@@ -46,12 +50,13 @@ app.use(function (
 ) {
   // set locals, only providing error in development
   if (err instanceof Error) {
-    res.locals.message = (err as Error).message;
+    res.locals.message = err.message;
   }
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
   // render the error page
-  res.status((err as any)?.status || 500);
+  const statusCode = (err as { status?: number })?.status ?? 500;
+  res.status(statusCode);
   res.render('error');
 });
 
