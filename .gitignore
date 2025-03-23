@@ -60,4 +60,4 @@ typings/
 # build output directory
 dist/
 
-secrets.js
+secrets.json
