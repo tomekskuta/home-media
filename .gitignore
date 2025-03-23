@@ -59,3 +59,5 @@ typings/
 
 # build output directory
 dist/
+
+secrets.js

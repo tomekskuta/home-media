@@ -1,0 +1,89 @@
+.chart-block {
+  border: 1px solid #000;
+  border-radius: 16px;
+  padding: 16px;
+  width: 100%;
+
+  & h2 {
+    margin: 0;
+  }
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  &__stats {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex-grow: 0;
+    margin: 0 auto;
+  }
+
+  &__stat {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #666;
+    font-size: 14px;
+  }
+
+  &__stat-label {
+    color: #666;
+    &::after {
+      content: '';
+    }
+  }
+
+  &__stat-value {
+    font-weight: 600;
+  }
+
+  &__stat-date {
+    color: #666;
+    font-size: 12px;
+  }
+
+  &__last-record-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+
+  &__last-record-label {
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 4px;
+  }
+
+  &__last-record {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    font-size: 14px;
+    color: #666;
+
+    &-date {
+      color: #666;
+      font-size: 12px;
+    }
+
+    &-value {
+      font-weight: 600;
+    }
+  }
+  
+  .chart-container {
+    height: 300px;
+    margin-top: 16px;
+    position: relative;
+  }
+  
+  .consumption-chart {
+    width: 100%;
+    height: 100%;
+  }
+}

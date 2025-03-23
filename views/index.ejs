@@ -1,11 +1,69 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-  </body>
+
+<head>
+  <title>
+    Media
+  </title>
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+</head>
+
+<body class="home-page">
+  <section class="charts-wrapper">
+    <%- include('components/chart-block/chart-block.ejs', { 
+      title: 'Prąd',
+      unit: 'kWh',
+      id: 'electricity-chart',
+      chartData: {
+        label: 'Zużycie prądu (kWh)',
+        labels: dates,
+        values: electricityData,
+        color: '#3e95cd',
+        yAxisLabel: 'kWh',
+        xAxisLabel: 'Miesiąc',
+        beginAtZero: true
+      },
+      lastRecordDate: lastRecord.date,
+      lastRecordValue: lastRecord.electricity,
+      stats: electricityStats
+    }) %>
+
+    <%- include('components/chart-block/chart-block.ejs', { 
+      title: 'Gaz',
+      unit: 'm³',
+      id: 'gas-chart',
+      chartData: {
+        label: 'Zużycie gazu (m³)',
+        labels: dates,
+        values: gasData,
+        color: '#ff6384',
+        yAxisLabel: 'm³',
+        xAxisLabel: 'Miesiąc',
+        beginAtZero: true
+      },
+      lastRecordDate: lastRecord.date,
+      lastRecordValue: lastRecord.gas,
+      stats: gasStats
+    }) %>
+
+    <%- include('components/chart-block/chart-block.ejs', { 
+      title: 'Woda',
+      unit: 'm³',
+      id: 'water-chart',
+      chartData: {
+        label: 'Zużycie wody (m³)',
+        labels: dates,
+        values: waterData,
+        color: '#4bc0c0',
+        yAxisLabel: 'm³',
+        xAxisLabel: 'Miesiąc',
+        beginAtZero: true
+      },
+      lastRecordDate: lastRecord.date,
+      lastRecordValue: lastRecord.water,
+      stats: waterStats
+    }) %>
+  </section>
+</body>
 </html>

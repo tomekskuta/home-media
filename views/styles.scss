@@ -1,0 +1,12 @@
+@use 'modern-normalize/modern-normalize.css';
+@use './components/chart-block/chart-block.scss';
+
+.home-page {
+  padding: 24px;
+
+  .charts-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+}

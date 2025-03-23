@@ -1,0 +1,85 @@
+<div class="chart-block">
+  <div class="chart-block__header">
+    <h2><%- title -%></h2>
+    <% if (stats && stats.min && stats.max && typeof stats.average !== 'undefined') { %>
+      <div class="chart-block__stats">
+        <div class="chart-block__stat">
+          <span class="chart-block__stat-label">Min:</span>
+          <span class="chart-block__stat-value"><%- stats.min.value %> <%- unit %></span>
+          <span class="chart-block__stat-date">(<%- stats.min.date %>)</span>
+        </div>
+        <div class="chart-block__stat">
+          <span class="chart-block__stat-label">Max:</span>
+          <span class="chart-block__stat-value"><%- stats.max.value %> <%- unit %></span>
+          <span class="chart-block__stat-date">(<%- stats.max.date %>)</span>
+        </div>
+        <div class="chart-block__stat">
+          <span class="chart-block__stat-label">Średnia:</span>
+          <span class="chart-block__stat-value"><%- stats.average %> <%- unit %></span>
+        </div>
+      </div>
+    <% } %>
+    <% if (lastRecordDate && lastRecordValue) { %>
+      <div class="chart-block__last-record-wrapper">
+        <span class="chart-block__last-record-label">Ostatni odczyt:</span>
+        <div class="chart-block__last-record">
+          <span class="chart-block__last-record-value"><%- lastRecordValue %> <%- unit %></span>
+          <span class="chart-block__last-record-date">(<%- lastRecordDate %>)</span>
+        </div>
+      </div>
+    <% } %>
+  </div>
+  <div class="chart-container">
+    <canvas id="chart-<%- id || title.toLowerCase().replace(/\s+/g, '-') %>" class="consumption-chart"></canvas>
+  </div>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Wait for Chart to be defined
+      if (typeof Chart === 'undefined') {
+        console.error('Chart.js is not loaded');
+        return;
+      }
+      const ctx = document.getElementById('chart-<%- id || title.toLowerCase().replace(/\s+/g, '-') %>');
+      
+      <% if (typeof chartData !== 'undefined' && chartData) { %>
+        new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels: <%- JSON.stringify(chartData.labels || []) %>,
+            datasets: [{
+              label: '<%- chartData.label || "Zużycie" %>',
+              data: <%- JSON.stringify(chartData.values || []) %>,
+              borderWidth: 2,
+              borderColor: '<%- chartData.color || "#3e95cd" %>',
+              backgroundColor: '<%- chartData.color || "#3e95cd" %>',
+              fill: true,
+              tension: 0.2
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+              y: {
+                beginAtZero: <%- chartData.beginAtZero !== false ? 'true' : 'false' %>,
+                title: {
+                  display: true,
+                  text: '<%- chartData.yAxisLabel || "Wartość" %>'
+                }
+              },
+              x: {
+                title: {
+                  display: true,
+                  text: '<%- chartData.xAxisLabel || "Data" %>'
+                }
+              }
+            }
+          }
+        });
+      <% } else { %>
+        ctx.parentElement.innerHTML = '<p>Brak danych do wyświetlenia</p>';
+      <% } %>
+    });
+  </script>
+</div>
