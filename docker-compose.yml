@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3001:3001"
+    environment:
+      - NODE_ENV=production
+      - GOOGLE_APPLICATION_CREDENTIALS=/run/secrets/gcp_credentials
+    env_file:
+      - .env
+    volumes:
+      - ./views:/app/views
+      - ./public:/app/public
+    secrets:
+      - gcp_credentials
+    restart: unless-stopped
+
+secrets:
+  gcp_credentials:
+    file: ./secrets.json
